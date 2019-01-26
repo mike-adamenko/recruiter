@@ -1,17 +1,29 @@
 package com.heavenhr.recruiter.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
 /**
  *
  */
+@Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"fk_offer", "candidateEmail"})})
 public class Application {
-    private  Offer offer;
-    private  String candidateEmail;
-    private  String resumeText;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_offer")
+    @JsonIgnore
+    private Offer offer;
+    private String candidateEmail;
+    private String resumeText;
     private ApplicationStatus applicationStatus;
 
-    public enum ApplicationStatus{
-            APPLIED, INVITED, REJECTED, HIRED
-        }
+    public enum ApplicationStatus {
+        APPLIED, INVITED, REJECTED, HIRED
+    }
 
     public Offer getOffer() {
         return offer;
@@ -43,5 +55,13 @@ public class Application {
 
     public void setApplicationStatus(ApplicationStatus applicationStatus) {
         this.applicationStatus = applicationStatus;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
