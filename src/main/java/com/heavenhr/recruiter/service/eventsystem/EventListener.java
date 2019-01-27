@@ -2,6 +2,8 @@ package com.heavenhr.recruiter.service.eventsystem;
 
 /**
  * A simple event listener.
+ *
+ * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 public interface EventListener {
     /**

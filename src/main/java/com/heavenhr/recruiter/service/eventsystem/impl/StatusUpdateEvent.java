@@ -3,6 +3,11 @@ package com.heavenhr.recruiter.service.eventsystem.impl;
 import com.heavenhr.recruiter.domain.Application;
 import com.heavenhr.recruiter.service.eventsystem.Event;
 
+/**
+ * Application status change triggers this notification
+ *
+ * @author Mike Adamenko (mnadamenko@gmail.com)
+ */
 public class StatusUpdateEvent implements Event {
 
     private final Application.ApplicationStatus applicationStatusBefore;

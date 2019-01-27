@@ -1,5 +1,10 @@
 package com.heavenhr.recruiter.service.eventsystem;
 
+/**
+ * Event Manager
+ *
+ * @author Mike Adamenko (mnadamenko@gmail.com)
+ */
 public interface EventManager {
     /**
      * Publish an {@link Event} that will be consumed by any listener which has

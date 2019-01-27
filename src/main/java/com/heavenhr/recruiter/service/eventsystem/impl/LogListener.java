@@ -5,6 +5,11 @@ import com.heavenhr.recruiter.service.eventsystem.EventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Listener that logs events
+ *
+ * @author Mike Adamenko (mnadamenko@gmail.com)
+ */
 public class LogListener implements EventListener {
 
     private final static Logger logger = LoggerFactory.getLogger(LogListener.class);

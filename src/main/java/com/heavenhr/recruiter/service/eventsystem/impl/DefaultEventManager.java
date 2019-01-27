@@ -15,6 +15,8 @@ import java.util.*;
  * <p>
  * <p>Event listeners can register to receive events via
  * {@link #registerListener(String, EventListener)}
+ *
+ * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 @Service
 public class DefaultEventManager implements EventManager {
