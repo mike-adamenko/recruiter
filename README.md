@@ -10,7 +10,7 @@ Application will be started on http://localhost:8080
 
 Port is configurable in application.properties (server.port)
 
-For handling of notifications an event system is implemented (look at package com.heavenhr.recruiter.service.eventsystem)
+For handling of notifications an event system was implemented (look at package com.heavenhr.recruiter.service.eventsystem)
 
 ### Please find application predefined data here :
 
