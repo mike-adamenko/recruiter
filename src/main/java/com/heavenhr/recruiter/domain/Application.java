@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 /**
+ * Application
  *
+ *  @author Mike Adamenko (mnadamenko@gmail.com)
  */
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"fk_offer", "candidateEmail"})})
@@ -20,10 +22,6 @@ public class Application {
     private String candidateEmail;
     private String resumeText;
     private ApplicationStatus applicationStatus;
-
-    public enum ApplicationStatus {
-        APPLIED, INVITED, REJECTED, HIRED
-    }
 
     public Offer getOffer() {
         return offer;
@@ -63,5 +61,9 @@ public class Application {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public enum ApplicationStatus {
+        APPLIED, INVITED, REJECTED, HIRED
     }
 }

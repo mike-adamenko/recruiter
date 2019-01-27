@@ -6,14 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Offer
  *
+ * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 @Entity
 public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique=true)
+    @Column(unique = true)
     private String jobTitle;
     private LocalDate startDate;
     @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL)
@@ -54,7 +56,7 @@ public class Offer {
     }
 
     public List<Application> getApplications() {
-        if (applications == null)applications = new ArrayList<>();
+        if (applications == null) applications = new ArrayList<>();
         return applications;
     }
 

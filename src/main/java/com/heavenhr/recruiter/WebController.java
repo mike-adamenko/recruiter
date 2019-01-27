@@ -4,14 +4,16 @@ import com.heavenhr.recruiter.dao.ApplicationDAO;
 import com.heavenhr.recruiter.dao.OfferDAO;
 import com.heavenhr.recruiter.domain.Application;
 import com.heavenhr.recruiter.domain.Offer;
+import com.heavenhr.recruiter.service.eventsystem.impl.DefaultEventManager;
+import com.heavenhr.recruiter.service.eventsystem.impl.StatusUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
-
+/**
+ * REST controller
+ *
+ * @author Mike Adamenko (mnadamenko@gmail.com)
+ */
 @RestController
 public class WebController {
 
@@ -20,6 +22,11 @@ public class WebController {
 
     @Autowired
     ApplicationDAO applicationDAO;
+
+    @Autowired
+    DefaultEventManager eventManager;
+
+    //GET
 
     @GetMapping(value = "offers/{id}")
     public Offer getOfferById(@PathVariable Integer id) {
@@ -36,6 +43,28 @@ public class WebController {
         return offerDAO.findAll();
     }
 
+    @GetMapping(value = "numberOfApplications/{jobTitle}")
+    public Integer getNumberOfApplications(@PathVariable String jobTitle) {
+        return offerDAO.findByJobTitle(jobTitle).get().getApplications().size();
+    }
+
+    @GetMapping(value = "applications/offer/{jobTitle}")
+    public Iterable<Application> getApplications(@PathVariable String jobTitle) {
+        return applicationDAO.findByOffer(jobTitle);
+    }
+
+    @GetMapping(value = "applications/{id}")
+    public Application getApplicationById(@PathVariable Integer id) {
+        return applicationDAO.findById(id).get();
+    }
+
+    @GetMapping(value = "application")
+    public Application getApplicationByEmail(String candidateEmail) {
+        return applicationDAO.findByCandidateEmail(candidateEmail).get();
+    }
+
+    //PUT
+
     @PutMapping(value = "offer")
     public void createOffer(@RequestBody Offer offer) {
         offerDAO.save(offer);
@@ -50,31 +79,16 @@ public class WebController {
         offerDAO.save(offer);
     }
 
-    @GetMapping(value = "applications")
-    public Iterable<Application> getApplications() {
-        return applicationDAO.findAll();
-    }
-
-    @GetMapping(value = "applications/{id}")
-    public Application getApplicationById(@PathVariable Integer id) {
-        return applicationDAO.findById(id).get();
-    }
-
-    @GetMapping(value = "application")
-    public Application getApplicationByEmail(String candidateEmail) {
-        return applicationDAO.findByCandidateEmail(candidateEmail).get();
-    }
+    //POST
 
     @PostMapping(value = "application/{candidateEmail}")
     public void updateApplicationStatus(@PathVariable String candidateEmail, String applicationStatus) {
         Application application = applicationDAO.findByCandidateEmail(candidateEmail).get();
-        application.setApplicationStatus(Application.ApplicationStatus.valueOf(applicationStatus));
+        Application.ApplicationStatus applicationStatusBefore = application.getApplicationStatus();
+        Application.ApplicationStatus applicationStatusAfter = Application.ApplicationStatus.valueOf(applicationStatus);
+        application.setApplicationStatus(applicationStatusAfter);
         applicationDAO.save(application);
-    }
-
-    @GetMapping(value = "numberOfApplications/{jobTitle}")
-    public Integer getNumberOfApplications(@PathVariable String jobTitle) {
-        return offerDAO.findByJobTitle(jobTitle).get().getApplications().size();
+        eventManager.publishEvent(new StatusUpdateEvent(applicationStatusBefore, applicationStatusAfter));
     }
 
 

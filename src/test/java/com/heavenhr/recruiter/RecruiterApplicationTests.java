@@ -13,13 +13,13 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 @SpringBootTest
 public class RecruiterApplicationTests {
 
-	@Autowired
-	private WebController controller;
+    @Autowired
+    private WebController controller;
 
-	@Test
-	public void contextLoads() {
-		assertThat(controller).isNotNull();
-	}
+    @Test
+    public void contextLoads() {
+        assertThat(controller).isNotNull();
+    }
 
 }
 
