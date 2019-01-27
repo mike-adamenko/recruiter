@@ -1,6 +1,6 @@
 # recruiter
 
-###Run the application  
+### Run the application  
 
 To run the application, execute from the recruiter dir:
 
@@ -10,15 +10,15 @@ Application will be started on http://localhost:8080
 
 Port is configurable in application.properties (server.port)
 
-For notifications handling event system is implemented (look at package com.heavenhr.recruiter.service.eventsystem)
+For handling of notifications an event system is implemented (look at package com.heavenhr.recruiter.service.eventsystem)
 
-###Please find application predefined data here :
+### Please find application predefined data here :
 
 recruiter\src\main\resources\data.sql
 
-###Defined REST services:
+### Defined REST services:
 
-####HTTP GET operations 
+#### HTTP GET operations 
 *read a single offer by id*  
   http://localhost:8080/offers/{id}
   
@@ -40,7 +40,7 @@ http://localhost:8080/applications/offer/{jobTitle}
 *track the number of applications*
 http://localhost:8080/numberOfApplications/{jobTitle}
 
-####HTTP PUT operations
+#### HTTP PUT operations
 *create a job offer*  
 http://localhost:8080/offer  
 
@@ -57,10 +57,10 @@ BODY  example
  {"candidateEmail":"email@gmail.com",
  "resumeText": "resumeText"}  
  
- ####HTTP POST operations
+ #### HTTP POST operations
 *progress the status of an application*  
 http://localhost:8080/application/{candidateEmail}
 
-BODY Example
+BODY Example  
 applicationStatus="INVITED"
 
